@@ -1,4 +1,4 @@
-import { Component, Renderer2, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-side-bar',
@@ -6,13 +6,9 @@ import { Component, Renderer2, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class SideBarComponent implements OnInit {
-  constructor(private renderer: Renderer2) {}
+export class SideBarComponent {
 
-  ngOnInit() {
 
-   
-  }
   onClick(evento: any) {
   document.body.classList.toggle('sidebar-toggled');
     const sidebar = document.querySelector('.sidebar');

@@ -1,7 +1,8 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLink]="['/catalogo']"
+        routerLinkActive="active">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -12,8 +13,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item">
+        <a routerLink="/catalogo" routerLinkActive="active" class="nav-link">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Inicio</span></a>
     </li>
@@ -36,8 +37,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Operaciones:</h6>
-                <a class="collapse-item" href="buttons.html">Crear producto</a>
-                <a class="collapse-item" href="cards.html">Gestionar Productos</a>
+                <a class="collapse-item" [routerLink]="['nuevo-producto']" routerLinkActive="active">Crear producto</a>
+                <a class="collapse-item" [routerLink]="['gestion-productos']" routerLinkActive="active">Gestionar Productos</a>
             </div>
         </div>
     </li>
