@@ -6,6 +6,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CatalogoComponent } from './catalogo/catalogo.component';
 import { CrearProductoComponent } from './crear-producto/crear-producto.component';
 import { GestionProductosComponent } from './gestion-productos/gestion-productos.component';
+import { AuthGuard } from '../guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -19,10 +20,12 @@ const routes: Routes = [
       {
         path: 'nuevo-producto',
         component: CrearProductoComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'gestion-productos',
         component: GestionProductosComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: '',
@@ -32,6 +35,7 @@ const routes: Routes = [
       {
         path: '**',
         component: NotFoundComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },
