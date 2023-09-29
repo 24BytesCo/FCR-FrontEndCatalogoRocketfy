@@ -231,4 +231,49 @@ export class ProductoComponent {
     console.log('item', item);
     console.log('this.categoriasBd', this.categoriasBd);
   }
+
+  eliminarProduto(){
+    Swal.fire({
+      title: '¿Esta seguro que desea eliminar éste producto?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Eliminando producto', '', 'success');
+
+        this.productosService.eliminarProducto(this.id).subscribe((res:any)=> 
+        {
+          console.log("res eliminar", res);
+          if (res.ok) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
+  
+            Toast.fire({
+              icon: 'success',
+              title: 'Producto eliminado',
+            });
+
+            this.router.navigateByUrl("/catalogo");
+          }
+          
+        } );;
+      } else if (result.isDenied) {
+        Swal.fire('No se han hecho cambios', '', 'info')
+      }
+    })
+  }
+
+  
 }

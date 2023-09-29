@@ -29,4 +29,9 @@ actualizarProducto(producto: ProductoCreaEdita, idProducto:string){
   return this.http.put(`${base_url}/productos/${idProducto}`, producto);
 
 }
+
+eliminarProducto(idProducto:string){
+  return this.http.delete(`${base_url}/productos/${idProducto}`);
+
+}
 }
