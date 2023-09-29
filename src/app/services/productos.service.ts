@@ -30,6 +30,11 @@ actualizarProducto(producto: ProductoCreaEdita, idProducto:string){
 
 }
 
+crearProducto(producto: ProductoCreaEdita){
+  return this.http.post(`${base_url}/productos`, producto);
+
+}
+
 eliminarProducto(idProducto:string){
   return this.http.delete(`${base_url}/productos/${idProducto}`);
 
