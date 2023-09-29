@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RequestResult } from 'src/app/interfaces/login.interface';
+import { Usuario } from 'src/app/models/usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -12,10 +14,12 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   formularioEnviado: boolean = false;
 
+  public usuario!: Usuario;
+
   // Define un formulario reactivo para el inicio de sesión
   public loginForm: FormGroup = this.formBuilder.group({
     correoElectronico: [
-      'Alexis@sadasd.com', // Valor inicial del campo de correo
+      'alexis.dorado.munoz@gmail.com', // Valor inicial del campo de correo
       [Validators.email, Validators.required, Validators.minLength(3)], // Validadores
     ],
     contrasenia: ['123456', [Validators.required, Validators.minLength(3)]], // Valor inicial del campo de contraseña y validadores
@@ -38,12 +42,25 @@ export class LoginComponent {
 
     // Llama al servicio de autenticación para iniciar sesión
     this.authService.login(this.loginForm.value).subscribe(
-      (resp: any) => {
+      (resp: RequestResult) => {
+        // Desestructura la respuesta y extrae los datos del usuario
+        const {} = resp.usuario;
 
-        // Después de un inicio de sesión exitoso, redirige al usuario a la página de inicio.
-       
+        // Crea un objeto 'Usuario' con los datos del usuario autenticado
+        this.usuario = new Usuario(
+          resp.usuario.nombreCompleto,
+          resp.usuario.correoElectronico,
+          resp.usuario.rol,
+          '', // No se proporciona la contraseña por razones de seguridad
+          false, // Indica que no es una cuenta de Google
+          resp.usuario.uid,
+          resp.usuario.img
+        );
+
+        // Después de un inicio de sesión exitoso, redirige al usuario a la página de inicio
         this.router.navigate(['/catalogo']);
-        // Muestra una notificación de éxito con el nombre del usuario
+
+        // Muestra una notificación de éxito utilizando SweetAlert2
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -58,7 +75,7 @@ export class LoginComponent {
 
         Toast.fire({
           icon: 'success',
-          title: 'Hola ' + resp.nombreCompleto,
+          title: 'Hola ' + resp.usuario.nombreCompleto,
         });
       },
       (err) => {

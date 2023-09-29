@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/models/usuario.model';
+import { EventService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -8,8 +10,25 @@ import Swal from 'sweetalert2';
   styles: [],
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  public usuario: Usuario = {
+    correoElectronico: '',
+    nombreCompleto: '',
+    contrasenia: '',
+    google: false,
+    img: '',
+    rol: '',
+    uid: '',
+  };
+  constructor(private router: Router, private eventService: EventService) {}
 
+  ngOnInit(): void {
+    // Suscríbete al observable usuario$ para recibir actualizaciones del usuario global
+    this.eventService.usuario$.subscribe((user) => {
+      console.log('user desde cabecera', user);
+
+      this.usuario = user;
+    });
+  }
   // Método para cerrar la sesión del usuario.
   cerrarSesion() {
     // Muestra una notificación de éxito con el nombre del usuario.

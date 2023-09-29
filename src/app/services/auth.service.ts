@@ -4,6 +4,7 @@ import { LoginForm } from '../interfaces/login.interface';
 import { environment } from 'src/environments/environment';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { EventService } from './data.service';
 
 // Obtén la URL base del entorno desde environment.ts
 const base_url = environment.base_url;
@@ -12,7 +13,11 @@ const base_url = environment.base_url;
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private eventService: EventService
+  ) {}
 
   // Método para iniciar sesión
   login(formData: LoginForm) {
@@ -22,6 +27,9 @@ export class AuthService {
       tap((resp: any) => {
         // Almacena el token de autenticación en el almacenamiento local (localStorage)
         localStorage.setItem('token', resp.token);
+
+        //Llama al servicio para actualizar el usuario global
+        this.eventService.updateUsuario(resp.usuario);
       })
     );
   }
@@ -43,6 +51,8 @@ export class AuthService {
         tap((resp: any) => {
           // Almacena el nuevo token de autenticación en el almacenamiento local (localStorage).
           localStorage.setItem('token', resp.token);
+          //Llama al servicio para actualizar el usuario global
+          this.eventService.updateUsuario(resp.usuario);
         }),
         // Mapea la respuesta a un valor booleano 'true' para indicar que la renovación fue exitosa.
         map((resp) => true),

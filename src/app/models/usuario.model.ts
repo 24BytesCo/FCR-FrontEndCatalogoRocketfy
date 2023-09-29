@@ -10,4 +10,9 @@ export class Usuario {
         public uid?: string,
         public img?: string
     ){}
+
+    
 }
+
+
+  

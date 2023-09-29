@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
+import { EventService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,7 +9,28 @@ import { Component } from '@angular/core';
   ]
 })
 export class SideBarComponent {
+  public usuario: Usuario = {
+    correoElectronico: '',
+    nombreCompleto: '',
+    contrasenia: '',
+    google: false,
+    img: '',
+    rol: '',
+    uid: '',
+  };
 
+  constructor(private eventService: EventService) {
+    
+  }
+  ngOnInit(): void {
+    // Suscríbete al observable usuario$ para recibir actualizaciones del usuario global
+    this.eventService.usuario$.subscribe((user) => {
+      console.log('user desde cabecera', user);
+
+      this.usuario = user;
+    });
+    
+  }
 
   onClick(evento: any) {
   document.body.classList.toggle('sidebar-toggled');

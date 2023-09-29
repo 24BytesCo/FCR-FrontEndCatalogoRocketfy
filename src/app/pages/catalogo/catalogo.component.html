@@ -1,1 +1,64 @@
-<p>catalogo works!</p>
+<div class="row">
+    <div class="col-xl-4 col-md-6 mb-4" *ngFor="let item of listaProductos">
+        <div class="card shadow h-100 py-2">
+            <div class="card-body d-flex flex-column" style="padding-bottom: 5px; position: relative;">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        {{ item.nombre }}
+                    </div>
+                    <p style="font-size: 11px;">Unidades Disponibles: {{ item.stock }}</p>
+                    <p style="font-size: 11px; margin-top: -17px;">SKU: {{ item.id }}</p>
+                </div>
+                <div class="col text-center mt-3 flex-grow-1" style="position: relative;">
+                    <div class="image-container" style="background-image: url('{{ item.imagen }}'); background-size: cover; background-position: center; width: 100%; height: 250px; border: 0.2px solid #cccccc49; border-radius: 10px;"></div>
+                    <a id="btn-ver"
+                        style="width: 120px; height: 30px; position: absolute; top: 10px; right: 12px; text-align: center;"
+                        class="btn btn-sm btn-primary shadow-sm">
+                        <span style="font-size: 10px;">{{ item.precio | currency:'COP' }}</span>
+                    </a>
+                    <a id="btn-ver-opuesto" (click)="previsualizar(item)" data-toggle="modal" data-target="#exampleModal"
+                        style="width: 120px; height: 30px; position: absolute; top: 10px; left: 12px; text-align: center;"
+                        class="btn btn-sm btn-primary shadow-sm">
+                        <span>Previsualizar</span>
+                    </a>
+                    <a id="btn-ver-mas"
+                        style="width: 100%; height: 30px; position: absolute; bottom: 10px; right: 0; text-align: center;"
+                         routerLink="producto/{{item.id}}" class="btn btn-sm btn-secondary shadow-sm">
+                        <span>Ver Más</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{productoPrevisualizar.nombre}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="margin-bottom: 20px;">{{ productoPrevisualizar.descripcion | slice:0:200 }}...</p>
+
+          <p *ngIf="cadenaCatagorias.includes('|') "><strong>Categorías:</strong> {{ cadenaCatagorias }}</p>
+          <p *ngIf="!cadenaCatagorias.includes('|') "><strong>Categoría:</strong> {{ cadenaCatagorias }}</p>
+          <p style="margin-top: -20px;"><strong>Stock:</strong> {{ productoPrevisualizar.stock }}</p>
+          <p style="margin-top: -20px;"><strong>Precio:</strong> {{ productoPrevisualizar.precio | currency:'COP' }}</p>
+          <p style="margin-top: -20px;"><strong>Usuario Crea:</strong> {{ productoPrevisualizar.usuarioCrea.nombreCompleto }}</p>
+
+          <div class="image-container" style="background-image: url('{{ productoPrevisualizar.imagen }}'); background-size: cover; background-position: center; width: 100%; height: 400px; border: 0.2px solid #cccccc49; border-radius: 10px;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
