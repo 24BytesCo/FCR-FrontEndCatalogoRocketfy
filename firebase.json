@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/fcr-front-end-catalogo-rocketfy",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
