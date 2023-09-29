@@ -9,7 +9,7 @@
             <div class="col-md-6" style="height: 500px;">
                 <div class="text-center">
                     <h3>{{ producto.nombre }}</h3>
-                    <h5>{{ producto.precio | currency: 'COP' }}</h5>
+                    <h5>{{ producto.precio | currency: 'COP ' }}</h5>
                 </div>
 
                 <p class="mt-5">Descripción</p>
@@ -70,29 +70,23 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Precio Anterior</th>
+                                    <th scope="col">Precio Nuevo</th>
+                                    <th scope="col">Usuario Modifica</th>
+                                    <th scope="col">Fecha Hora Modificación</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                <tr *ngFor="let item of historicoPrecios; let i=index">
+                                    <th style="font-size: 13px;" scope="row">{{i+1}}</th>
+                                    <td style="font-size: 13px;">{{ item.producto.nombre  }}</td>
+                                    <td style="font-size: 13px;">{{ item.precioAntiguo | currency:'COP ' }}</td>
+                                    <td style="font-size: 13px;">{{ item.precioNuevo | currency:'COP ' }}</td>
+                                    <td style="font-size: 13px;">{{ item.usuarioCrea.nombreCompleto }}</td>
+                                    <td style="font-size: 13px;">{{ formatearFecha( item.fechaCreacion) }}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -111,29 +105,23 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Stock Anterior</th>
+                                    <th scope="col">Stock Nuevo</th>
+                                    <th scope="col">Usuario Modifica</th>
+                                    <th scope="col">Fecha Hora Modificación</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                <tr *ngFor="let item of historicoStock; let i=index">
+                                    <th style="font-size: 13px;" scope="row">{{i+1}}</th>
+                                    <td style="font-size: 13px;">{{ item.producto.nombre  }}</td>
+                                    <td style="font-size: 13px;">{{ item.stockAntiguo  }}</td>
+                                    <td style="font-size: 13px;">{{ item.stockNuevo  }}</td>
+                                    <td style="font-size: 13px;">{{ item.usuarioCrea.nombreCompleto }}</td>
+                                    <td style="font-size: 13px;">{{ formatearFecha( item.fechaCreacion) }}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>

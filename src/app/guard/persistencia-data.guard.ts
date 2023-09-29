@@ -6,9 +6,6 @@ import Swal from 'sweetalert2';
 export const PersistenciaDatahGuard: CanActivateFn = (route, state) => {
   const servicioAuth = inject(AuthService);
 
-
-   servicioAuth.validarRenovarToken()?.subscribe((res)=> {
-    console.log("res rev", res);
-   } );
+  servicioAuth.validarRenovarToken()?.subscribe((res) => {});
   return true;
 };

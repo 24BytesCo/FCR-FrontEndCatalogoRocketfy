@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { EventService } from 'src/app/services/data.service';
+import { ProductosService } from 'src/app/services/productos.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,6 +11,8 @@ import Swal from 'sweetalert2';
   styles: [],
 })
 export class HeaderComponent {
+  busqueda: string = '';
+  busquedaRango: string = '';
   public usuario: Usuario = {
     correoElectronico: '',
     nombreCompleto: '',
@@ -19,13 +22,15 @@ export class HeaderComponent {
     rol: '',
     uid: '',
   };
-  constructor(private router: Router, private eventService: EventService) {}
+  constructor(
+    private router: Router,
+    private eventService: EventService,
+    private productoService: ProductosService
+  ) {}
 
   ngOnInit(): void {
     // Suscríbete al observable usuario$ para recibir actualizaciones del usuario global
     this.eventService.usuario$.subscribe((user) => {
-      console.log('user desde cabecera', user);
-
       this.usuario = user;
     });
   }
@@ -54,5 +59,26 @@ export class HeaderComponent {
 
     // Redirige al usuario a la página de inicio de sesión.
     this.router.navigateByUrl('/login');
+  }
+  buscar() {
+    if (this.busqueda.trim() == '') {
+      this.productoService
+        .cargarTodosProductosPaginacion(0)
+        .subscribe((res: any) => {
+          this.eventService.updateProducto(res);
+        });
+    } else {
+      this.productoService.buscar(this.busqueda).subscribe((res: any) => {
+        this.eventService.updateProducto(res);
+      });
+    }
+  }
+
+  buscarRango() {
+    this.productoService
+      .buscarRango(this.busquedaRango)
+      .subscribe((res: any) => {
+        this.eventService.updateProducto(res);
+      });
   }
 }

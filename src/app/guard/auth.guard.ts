@@ -8,8 +8,6 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   const rutas = inject(Router);
   const token = localStorage.getItem('token');
 
-  console.log('validando token en localstorage');
-
   if (!token) {
     let timerInterval: any;
 
@@ -28,7 +26,6 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     }).then((result) => {
       /* Read more about handling dismissals below */
       if (result.dismiss === Swal.DismissReason.timer) {
-        console.log('I was closed by the timer');
       }
     });
 
@@ -39,7 +36,6 @@ export const AuthGuard: CanActivateFn = (route, state) => {
 
    servicioAuth.validarRenovarToken()?.subscribe((res)=> {
 
-    console.log("res rev", res);
     
    } );
   return true;

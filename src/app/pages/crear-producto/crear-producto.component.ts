@@ -34,14 +34,10 @@ export class CrearProductoComponent {
 
   ngOnInit(): void {
     this.eventService.usuario$.subscribe((user) => {
-      console.log('user desde cabecera', user);
-
       this.idUsuarioLogueado = user.uid || '';
     });
     // Consulta las categorías desde el servicio y modifica su estructura
     this.productosService.consultarCategorias().subscribe((res: any) => {
-      console.log('cat', res);
-
       this.categoriasGeneralesModificada = res.categorias.map((objeto: any) => {
         objeto.id = objeto.id;
         objeto.nombre = objeto.nombre;
@@ -54,8 +50,6 @@ export class CrearProductoComponent {
 
   // Método para manejar el clic en las categorías
   categoriasClick(item: any) {
-    console.log('click');
-
     // Verifica si la categoría ya está en la lista de categorías del producto
     if (this.categoriasBd.includes(item.id)) {
       // Si está, la remueve
@@ -66,14 +60,9 @@ export class CrearProductoComponent {
       // Si no está, la agrega
       this.categoriasBd.push(item.id);
     }
-
-    console.log('item', item);
-    console.log('this.categoriasBd', this.categoriasBd);
   }
 
   crearProducto(evento: any) {
-    console.log('actualizando', this.productoForm.value);
-    console.log('evento', evento);
     if (!this.productoForm.valid) {
       const Toast = Swal.mixin({
         toast: true,
@@ -116,7 +105,6 @@ export class CrearProductoComponent {
 
     const { nombre, precio, stock, imagen, descripcion } =
       this.productoForm.getRawValue();
-    console.log('this.idUsuarioLogueado', this.idUsuarioLogueado);
 
     this.productoCreaEdita = {
       categoria: this.categoriasBd,
@@ -128,34 +116,29 @@ export class CrearProductoComponent {
       usuarioCrea: this.idUsuarioLogueado,
     };
 
-    console.log('productoCreaEdita', this.productoCreaEdita);
     this.productosService
-    .crearProducto(this.productoCreaEdita)
-    .subscribe((res: any) => {
-      console.log('res crear', res);
+      .crearProducto(this.productoCreaEdita)
+      .subscribe((res: any) => {
+        if (res.ok) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
 
-      if (res.ok) {
-       
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          },
-        });
+          Toast.fire({
+            icon: 'success',
+            title: 'Producto creado',
+          });
 
-        Toast.fire({
-          icon: 'success',
-          title: 'Producto creado',
-        });
-
-        this.router.navigateByUrl("/catalogo/producto/"+res.producto.id);
-
-      }
-    });
+          this.router.navigateByUrl('/catalogo/producto/' + res.producto.id);
+        }
+      });
   }
 }

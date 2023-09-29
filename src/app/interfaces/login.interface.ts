@@ -75,3 +75,43 @@ export interface RequestResult {
     usuarioCrea: string
   }
   
+
+  export interface RootHistoricoStock {
+    ok: boolean;
+    respuesta: RespuesuHisoricoStock[];
+  }
+  export interface RootHistoricoPrecios {
+    ok: boolean;
+    respuesta: RespuesuHisoricoPrecio[];
+  }
+  
+  export interface RespuesuHisoricoStock {
+    producto: Producto
+    stockAntiguo: number
+    stockNuevo: number
+    usuarioCrea: UsuarioCrea
+    activo: boolean
+    fechaCreacion: string
+    id: string
+  }
+  
+  export interface RespuesuHisoricoPrecio {
+    producto: Producto
+    precioAntiguo: number
+    precioNuevo: number
+    usuarioCrea: UsuarioCrea
+    activo: boolean
+    fechaCreacion: string
+    id: string
+  }
+  
+  export interface Producto {
+    _id: string
+    nombre: string
+  }
+  
+  export interface UsuarioCrea {
+    _id: string
+    nombreCompleto: string
+  }
+  

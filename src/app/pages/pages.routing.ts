@@ -23,6 +23,8 @@ const routes: Routes = [
       {
         path: 'producto/:id',
         component: ProductoComponent,
+        canActivate: [PersistenciaDatahGuard]
+
       },
       {
         path: 'nuevo-producto',
