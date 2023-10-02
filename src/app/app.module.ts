@@ -8,17 +8,18 @@ import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './interceptors/interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [BrowserModule, AppRoutingModule, PagesModule, SharedModule, AuthModule],
   exports: [],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: InterceptorService,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent],
 })

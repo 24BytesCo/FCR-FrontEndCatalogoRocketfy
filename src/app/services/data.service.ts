@@ -22,6 +22,7 @@ export class EventService {
   });
 
   private sideBarMovilEstadoSubject = new BehaviorSubject<boolean>(false);
+  private ocultarSpinnerSubject = new BehaviorSubject<boolean>(true);
 
   private productoSubject = new BehaviorSubject<RootProductos>({
     catalogo: [],
@@ -32,6 +33,8 @@ export class EventService {
   usuario$ = this.usuarioSubject.asObservable();
   sideBarMovilEstado$ = this.sideBarMovilEstadoSubject.asObservable();
   productoList$ = this.productoSubject.asObservable();
+  ocultarSpinner$ = this.ocultarSpinnerSubject.asObservable();
+
 
   updateUsuario(newUser: Usuario): void {
     this.usuarioSubject.next(newUser);
@@ -44,4 +47,9 @@ export class EventService {
   updateEstadoSideBarMovil(abierta: boolean): void {
     this.sideBarMovilEstadoSubject.next(abierta);
   }
+
+  updateOcultarSpinner(ocultar: boolean): void {
+    this.ocultarSpinnerSubject.next(ocultar);
+  }
+  
 }

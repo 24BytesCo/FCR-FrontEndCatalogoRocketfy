@@ -51,7 +51,7 @@ export class HeaderComponent {
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 3000,
+      timer: 1000,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer);
@@ -67,8 +67,9 @@ export class HeaderComponent {
     // Elimina el token de autenticación almacenado en el localStorage.
     localStorage.removeItem('token');
 
-    // Redirige al usuario a la página de inicio de sesión.
-    this.router.navigateByUrl('/login');
+    window.location.reload();
+
+
   }
 
   toggleSidebar() {

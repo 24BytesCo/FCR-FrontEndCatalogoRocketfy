@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { MigasPanComponent } from './migas-pan/migas-pan.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SideBarComponent,
     FooterComponent,
     HeaderComponent,
-    MigasPanComponent
+    MigasPanComponent,
+    SpinnerComponent
 
   ],
   imports: [
@@ -26,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SideBarComponent,
     FooterComponent,
     HeaderComponent,
-    MigasPanComponent
+    MigasPanComponent,
+    SpinnerComponent
 
   ]
 })
