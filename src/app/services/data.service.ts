@@ -21,6 +21,8 @@ export class EventService {
     uid: '',
   });
 
+  private sideBarMovilEstadoSubject = new BehaviorSubject<boolean>(false);
+
   private productoSubject = new BehaviorSubject<RootProductos>({
     catalogo: [],
     ok: false,
@@ -28,6 +30,7 @@ export class EventService {
   });
 
   usuario$ = this.usuarioSubject.asObservable();
+  sideBarMovilEstado$ = this.sideBarMovilEstadoSubject.asObservable();
   productoList$ = this.productoSubject.asObservable();
 
   updateUsuario(newUser: Usuario): void {
@@ -36,5 +39,9 @@ export class EventService {
 
   updateProducto(listaProductos: RootProductos): void {
     this.productoSubject.next(listaProductos);
+  }
+
+  updateEstadoSideBarMovil(abierta: boolean): void {
+    this.sideBarMovilEstadoSubject.next(abierta);
   }
 }

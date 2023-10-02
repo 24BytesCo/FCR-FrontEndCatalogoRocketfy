@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styles: [],
 })
 export class HeaderComponent {
+  isToggled:boolean = false;
   busqueda: string = '';
   busquedaRango: string = '';
   public usuario: Usuario = {
@@ -26,14 +27,23 @@ export class HeaderComponent {
     private router: Router,
     private eventService: EventService,
     private productoService: ProductosService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     // Suscríbete al observable usuario$ para recibir actualizaciones del usuario global
     this.eventService.usuario$.subscribe((user) => {
       this.usuario = user;
     });
+
+    this.toggleSidebar();
+    
+
+
   }
+
+
+
   // Método para cerrar la sesión del usuario.
   cerrarSesion() {
     // Muestra una notificación de éxito con el nombre del usuario.
@@ -60,6 +70,14 @@ export class HeaderComponent {
     // Redirige al usuario a la página de inicio de sesión.
     this.router.navigateByUrl('/login');
   }
+
+  toggleSidebar() {
+    
+    this.isToggled = !this.isToggled;
+
+    this.eventService.updateEstadoSideBarMovil(this.isToggled);
+  }
+
   buscar() {
     if (this.busqueda.trim() == '') {
       this.productoService

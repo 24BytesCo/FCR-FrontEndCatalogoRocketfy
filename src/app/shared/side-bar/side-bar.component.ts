@@ -8,6 +8,9 @@ import { EventService } from 'src/app/services/data.service';
   styles: [],
 })
 export class SideBarComponent {
+  isToggled = false;
+
+
   public usuario: Usuario = {
     correoElectronico: '',
     nombreCompleto: '',
@@ -24,9 +27,16 @@ export class SideBarComponent {
     this.eventService.usuario$.subscribe((user) => {
       this.usuario = user;
     });
+
+    this.eventService.sideBarMovilEstado$.subscribe((res)=> 
+    {
+      this.isToggled = res;
+    } );
   }
 
   onClick(evento: any) {
+    
+
     document.body.classList.toggle('sidebar-toggled');
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) {

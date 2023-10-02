@@ -22,8 +22,16 @@ export class CrearProductoComponent {
   });
   categoriasGeneralesModificada: Array<any> = []; // Arreglo para almacenar categorías modificadas
   categoriasBd: Array<string> = []; // Arreglo para almacenar categorías desde la base de datos
-  productoCreaEdita!: ProductoCreaEdita;
-  idUsuarioLogueado!: string;
+  productoCreaEdita: ProductoCreaEdita = {
+    categoria: [],
+    descripcion: '',
+    imagen: '',
+    nombre: '',
+    precio: 0,
+    stock: 0,
+    usuarioCrea: ""
+  };;
+  idUsuarioLogueado: string = "";
 
   constructor(
     private formBuilder: FormBuilder,

@@ -20,9 +20,34 @@ export class CatalogoComponent {
   ) {}
   listaProductos: Array<Catalogo> = [];
 
-  caro!: Catalogo;
-  barato!: Catalogo;
-
+  caro: Catalogo = {
+    activo: false,
+    categoria: [],
+    descripcion: '',
+    id: '',
+    imagen: '',
+    nombre: '',
+    precio: 0,
+    stock: 0,
+    usuarioCrea: {
+      _id: '',
+      nombreCompleto: '',
+    },
+  };
+  barato: Catalogo = {
+    activo: false,
+    categoria: [],
+    descripcion: '',
+    id: '',
+    imagen: '',
+    nombre: '',
+    precio: 0,
+    stock: 0,
+    usuarioCrea: {
+      _id: '',
+      nombreCompleto: '',
+    },
+  };
   totalRegistros: string = '0';
   desde: number = 0;
   rango: Number = 0;

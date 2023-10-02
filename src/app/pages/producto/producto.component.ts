@@ -23,14 +23,37 @@ export class ProductoComponent {
   categoriasBd: Array<string> = []; // Arreglo para almacenar categorías desde la base de datos
   categoriasGeneralesModificada: Array<any> = []; // Arreglo para almacenar categorías modificadas
 
-  producto!: Producto; // Variable para almacenar un producto
-  cadenaCatagorias!: string; // Variable para almacenar una cadena de categorías
+  producto: Producto = {
+    activo: false,
+    _id: "",
+    categoria: [],
+    descripcion: '',
+    id: '',
+    imagen: '',
+    nombre: '',
+    precio: 0,
+    stock: 0,
+    usuarioCrea: {
+      _id: '',
+      nombreCompleto: '',
+    },
+  }; // Variable para almacenar un producto
+  cadenaCatagorias: string = "" // Variable para almacenar una cadena de categorías
   id: string = ''; // Variable para almacenar el ID del producto
-  idUsuarioLogueado!: string;
+  idUsuarioLogueado: string = "";
 
-  productoCreaEdita!: ProductoCreaEdita;
-  historicoPrecios!: Array<RespuesuHisoricoPrecio>;
-  historicoStock!: Array<RespuesuHisoricoStock>;
+  productoCreaEdita: ProductoCreaEdita = {
+    categoria: [],
+    descripcion: '',
+    imagen: '',
+    nombre: '',
+    precio: 0,
+    stock: 0,
+    usuarioCrea: ""
+  
+  };;
+  historicoPrecios: Array<RespuesuHisoricoPrecio>= [];
+  historicoStock: Array<RespuesuHisoricoStock> = [];
 
   // Declaración de un FormGroup para el formulario de producto
   public productoForm: FormGroup = this.formBuilder.group({

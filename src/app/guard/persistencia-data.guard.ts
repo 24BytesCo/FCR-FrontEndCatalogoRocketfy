@@ -5,7 +5,18 @@ import Swal from 'sweetalert2';
 
 export const PersistenciaDatahGuard: CanActivateFn = (route, state) => {
   const servicioAuth = inject(AuthService);
+  const ruta = state.url;
+
+
+  if (state.url.indexOf('catalogo/producto/') !== -1) {
+    // No realices la validación en esta ruta, simplemente permite el acceso
+    return true;
+  }
 
   servicioAuth.validarRenovarToken()?.subscribe((res) => {});
   return true;
+
+
+  
 };
+

@@ -14,7 +14,16 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   formularioEnviado: boolean = false;
 
-  public usuario!: Usuario;
+  public usuario: Usuario = 
+  {
+    correoElectronico:"",
+    nombreCompleto:"",
+    contrasenia:"",
+    google: false,
+    img:"",
+    rol:"",
+    uid:""
+  };
 
   // Define un formulario reactivo para el inicio de sesión
   public loginForm: FormGroup = this.formBuilder.group({
