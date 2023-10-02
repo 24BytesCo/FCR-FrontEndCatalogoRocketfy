@@ -67,6 +67,16 @@ export class HeaderComponent {
     // Elimina el token de autenticación almacenado en el localStorage.
     localStorage.removeItem('token');
 
+    this.eventService.updateUsuario( {
+      correoElectronico: '',
+      nombreCompleto: '',
+      contrasenia: '',
+      google: false,
+      img: '',
+      rol: '',
+      uid: '',
+    });
+
     // Redirige al usuario a la página de inicio de sesión.
     this.router.navigateByUrl('/login');
   }
