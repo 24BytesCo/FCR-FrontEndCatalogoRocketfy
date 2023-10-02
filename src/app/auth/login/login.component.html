@@ -34,19 +34,25 @@
                                             Inicar Sesión
                                         </a>
                                         <hr>
-                                        
+
 
                                     </form>
+                                    <div class="d-flex justify-content-end">
+                                        <a routerLinkActive="active" routerLink="/catalogo">
+                                            <h6><strong>Volver a Catalogo</strong></h6>
+                                        </a>
+                                    </div>
                                     <div class="row">
                                         <div class="col text-danger">
-                                            <p *ngIf="campoNoValido('correoElectronico')">El correo electrónico es obligatorio y debe ser válido</p>
+                                            <p *ngIf="campoNoValido('correoElectronico')">El correo electrónico es
+                                                obligatorio y debe ser válido</p>
                                             <p *ngIf="campoNoValido('contrasenia')">La contraseña es obligatoria</p>
                                         </div>
                                     </div>
 
                                 </div>
 
-                               
+
                             </div>
                         </div>
                     </div>

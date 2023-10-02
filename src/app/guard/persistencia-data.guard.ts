@@ -14,8 +14,6 @@ export const PersistenciaDatahGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    console.log('No hay Token');
-
     return true;
   }
   servicioAuth.validarRenovarToken()?.subscribe((res) => {
