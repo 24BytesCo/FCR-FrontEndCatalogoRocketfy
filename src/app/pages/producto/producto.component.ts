@@ -25,7 +25,7 @@ export class ProductoComponent {
 
   producto: Producto = {
     activo: false,
-    _id: "",
+    _id: '',
     categoria: [],
     descripcion: '',
     id: '',
@@ -38,9 +38,9 @@ export class ProductoComponent {
       nombreCompleto: '',
     },
   }; // Variable para almacenar un producto
-  cadenaCatagorias: string = "" // Variable para almacenar una cadena de categorías
+  cadenaCatagorias: string = ''; // Variable para almacenar una cadena de categorías
   id: string = ''; // Variable para almacenar el ID del producto
-  idUsuarioLogueado: string = "";
+  idUsuarioLogueado: string = '';
 
   productoCreaEdita: ProductoCreaEdita = {
     categoria: [],
@@ -49,10 +49,9 @@ export class ProductoComponent {
     nombre: '',
     precio: 0,
     stock: 0,
-    usuarioCrea: ""
-  
-  };;
-  historicoPrecios: Array<RespuesuHisoricoPrecio>= [];
+    usuarioCrea: '',
+  };
+  historicoPrecios: Array<RespuesuHisoricoPrecio> = [];
   historicoStock: Array<RespuesuHisoricoStock> = [];
 
   // Declaración de un FormGroup para el formulario de producto
@@ -104,6 +103,34 @@ export class ProductoComponent {
   consultarProducto() {
     // Consulta un producto por su ID y asigna los datos a variables
     this.productosService.consultarUnProducto(this.id).subscribe((res: any) => {
+      if (!res.ok) {
+        let timerInterval: any;
+        Swal.fire({
+          title: res.mensaje,
+          html: 'Se cerrará en <b></b> millisegundos.',
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer()?.querySelector('b')|| new HTMLElement;
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()?.toString()||"";
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer');
+          }
+        });
+
+        this.router.navigateByUrl("/catalogo");
+        return;
+      }
+
       this.producto = res.producto; // Almacena el producto
 
       this.categoriasBd = res.producto.categoria.map((obj: any) => obj._id); // Obtiene los IDs de las categorías
@@ -226,7 +253,6 @@ export class ProductoComponent {
 
   // Método para manejar el clic en las categorías
   categoriasClick(item: any) {
-
     // Verifica si la categoría ya está en la lista de categorías del producto
     if (this.categoriasBd.includes(item.id)) {
       // Si está, la remueve
@@ -237,7 +263,6 @@ export class ProductoComponent {
       // Si no está, la agrega
       this.categoriasBd.push(item.id);
     }
-
   }
 
   eliminarProduto() {
@@ -312,11 +337,9 @@ export class ProductoComponent {
   }
 
   consultarHistoricoPrecioProducto() {
-
     this.productosService
       .consultarHistorialPrecios(this.id)
       .subscribe((res: RootHistoricoPrecios) => {
-
         this.historicoPrecios = res.respuesta;
       });
   }
